@@ -15,8 +15,11 @@ $cmake = Get-Content -Raw $cmakePath
 $cmake = $cmake.Replace('project(UnionPlugin', 'project(Union_AutoInvoker_NB')
 $cmake = $cmake.Replace('set(GENERATE_UNION_API_DLL ON)', 'set(GENERATE_UNION_API_DLL OFF)')
 $cmake = $cmake.Replace('set(GENERATE_VDF ON)', 'set(GENERATE_VDF OFF)')
+# Pin the version resource to a well-formed four-component Windows version.
+# Avoid an unset PROJECT_VERSION_TWEAK component in newer CMake versions.
+$cmake = $cmake.Replace('${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}.${PROJECT_VERSION_TWEAK}', '1.0.0.0')
 Set-Content -Path $cmakePath -Value $cmake -Encoding utf8
-cmake -S $WorkingDir -B "$WorkingDir\out\auto-nb-g2a" -G Ninja -DCMAKE_BUILD_TYPE=Release -DGOTHIC_API_G2A=ON -DPROJECT_VERSION=1.0.0.0
+cmake -S $WorkingDir -B "$WorkingDir\out\auto-nb-g2a" -G Ninja -DCMAKE_BUILD_TYPE=Release -DGOTHIC_API_G2A=ON
 if ($LASTEXITCODE -ne 0) { throw "CMake configuration failed" }
 cmake --build "$WorkingDir\out\auto-nb-g2a" --config Release --parallel
 if ($LASTEXITCODE -ne 0) { throw "C++ compilation failed" }
