@@ -1,6 +1,8 @@
 # Union AutoInvoker NB — source and Windows x86 CI build
 
-**Status: NOT built against Union Framework or tested in New Balance.**
+**Status: GitHub Actions Windows x86 build passed (run #2, commit `6eebf15`); not yet tested in New Balance.**
+
+[Download the verified build artifact from run #2](https://github.com/Nereziel/Union_AutoInvoker_NB_CI/actions/runs/44107881661/artifacts/14339068024). DLL: PE32 x86 (61,440 bytes).
 Independent implementation, not the original `Union_AutoInvoker.dll` source.
 
 ## Build through GitHub Actions (Windows x86)
