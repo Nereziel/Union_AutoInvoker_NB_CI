@@ -1,12 +1,12 @@
-# Union AutoInvoker NB — build-ready source package, not compiled
+# Union AutoInvoker NB — source and Windows x86 CI build
 
 **Status: NOT built against Union Framework or tested in New Balance.**
 Independent implementation, not the original `Union_AutoInvoker.dll` source.
 
 ## Build through GitHub Actions (Windows x86)
-1. Create a GitHub repository and upload all files from this ZIP, **including `.github/workflows/build-windows.yml`**.
-2. Open **Actions → Build Union AutoInvoker NB (Win32) → Run workflow**.
-3. If successful, download artifact **Union_AutoInvoker_NB-Win32**. Contains DLL and `ManaRegen.d`.
+1. Open **Actions → Build Union AutoInvoker NB (Win32)** in this repository.
+2. Download the successful **Union_AutoInvoker_NB-Win32** artifact from run #2, or click **Run workflow** to rebuild.
+3. Extract the ZIP containing the DLL and `scripts/ManaRegen.d`.
 4. Back up the game and save files, **remove the old AutoInvoker DLL**, then install `Union_AutoInvoker_NB.dll` and `ManaRegen.d` into `Gothic II/System/Autorun/`.
 5. Test a character with a learned magic circle. If the game crashes or fails to start, remove the DLL.
 
