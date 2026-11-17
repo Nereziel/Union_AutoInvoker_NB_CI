@@ -1,0 +1,30 @@
+name: Build Union AutoInvoker NB (Win32)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/**"
+      - "build.ps1"
+      - ".github/workflows/build-windows.yml"
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure MSVC for 32-bit Windows
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build DLL (G2A)
+        shell: pwsh
+        run: ./build.ps1
+      - name: Publish DLL artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Union_AutoInvoker_NB-Win32
+          path: |
+            Union_AutoInvoker_NB.dll
+            scripts/ManaRegen.d
+          if-no-files-found: error
