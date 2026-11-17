@@ -5,6 +5,24 @@
 [Download the verified build artifact from run #2](https://github.com/Nereziel/Union_AutoInvoker_NB_CI/actions/runs/44107881661/artifacts/14339068024). DLL: PE32 x86 (61,440 bytes).
 Independent implementation, not the original `Union_AutoInvoker.dll` source.
 
+## Recommended for New Balance: Daedalus-only (no third-party DLL)
+
+Current New Balance builds may reject unknown Union DLL plugins even when they compile and link successfully. If the game reports **Not Compatible**, do not force plugin loading by renaming DLLs or modifying Union core settings.
+
+Use [`scripts/ManaRegen_NoDLL.d`](scripts/ManaRegen_NoDLL.d) instead. Place this **one file** in `Gothic II/System/Autorun/`, and remove old `Union_AutoInvoker.dll`, `Union_AutoInvoker_NB.dll` and any older `ManaRegen.d` from active locations. Keep other working mods (such as your XP multiplier).
+
+This version uses zParserExtender's built-in `GameLoop()` callback only to register a persistent `AI_StartTriggerScript("NB_ManaRegen_Tick", 1000)` timer. It detects existing timers via `AI_GetNextTriggerByFuncName` to avoid duplicates after loading a save. No FPS-dependent mana calculations and no additional DLL or INI edits.
+
+Regeneration: 1% of maximum mana per second, minimum 1 point, only if `Npc_GetTalentSkill(hero, NPC_TALENT_MAGE) >= 1`; full HP is **not** required. It deliberately does **not** enable regeneration for every class with mana.
+
+**Status:** script API verified in zParserExtender documentation/source; **not tested inside the user's New Balance build**. If it fails to load, capture the exact parser error and disable only this file.
+
+References:
+- https://gothic-modding-community.github.io/gmc/zengin/scripts/extenders/zparserextender/externals/events_vars/
+- https://auronen.cokoliv.eu/gmc/cs/zengin/scripts/extenders/zparserextender/classes/c_trigger/
+
+---
+
 ## Build through GitHub Actions (Windows x86)
 1. Open **Actions → Build Union AutoInvoker NB (Win32)** in this repository.
 2. Download the successful **Union_AutoInvoker_NB-Win32** artifact from run #2, or click **Run workflow** to rebuild.
